@@ -1,7 +1,7 @@
 [build]
   base = "nextjs-frontend"
-  command = "npm run build"
-  publish = "nextjs-frontend/out"
+  command = "npm install && npm run build"
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "18"
