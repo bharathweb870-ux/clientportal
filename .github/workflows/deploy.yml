@@ -35,7 +35,7 @@ jobs:
       - name: Build
         working-directory: nextjs-frontend
         env:
-          NEXT_PUBLIC_API_URL: https://webbuilders-api.infinityfreeapp.com/api
+          NEXT_PUBLIC_API_URL: https://api.crm.webbuilders.lk/api
         run: yarn build
 
       - name: Upload artifact
