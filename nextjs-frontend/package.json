@@ -6,12 +6,14 @@
     "dev": "npx next dev",
     "build": "npx next build",
     "start": "npx next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "npm rebuild --update-binary || true"
   },
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.20",
     "@fullcalendar/interaction": "^6.1.20",
     "@fullcalendar/react": "^6.1.20",
+    "@tailwindcss/oxide": "*",
     "axios": "^1.7.0",
     "cross-env": "^10.1.0",
     "lucide-react": "^0.400.0",
@@ -21,7 +23,7 @@
     "recharts": "^2.15.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.0-alpha.0",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
