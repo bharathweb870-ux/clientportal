@@ -198,7 +198,7 @@ export default function AgentClientsPage() {
                                             </div>
                                         </td>
                                         <td className="p-8 text-right">
-                                            <Link href={`/agent/clients/${client.id}`} className="px-6 py-3 bg-slate-900 text-white rounded-[18px] text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 transition-all shadow-sm">
+                                            <Link href={`/agent/clients/view?id=${client.id}`} className="px-6 py-3 bg-slate-900 text-white rounded-[18px] text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 transition-all shadow-sm">
                                                 Manage
                                             </Link>
                                         </td>

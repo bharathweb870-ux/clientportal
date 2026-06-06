@@ -225,7 +225,7 @@ export default function ProjectsPage() {
                                             <AlertCircle size={20} />
                                         </button>
                                         <Link 
-                                            href={`/admin/projects/${project.id}`}
+                                            href={`/admin/projects/view?id=${project.id}`}
                                             className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-[18px] text-[10px] font-black uppercase tracking-widest transition-all shadow-sm flex items-center gap-2 group/btn"
                                         >
                                             Details <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />

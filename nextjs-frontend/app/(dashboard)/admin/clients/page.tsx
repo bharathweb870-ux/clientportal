@@ -584,7 +584,7 @@ export default function ClientsPage() {
                                                     </button>
                                                 )}
                                                 <Link 
-                                                    href={`/admin/clients/${client.id}`}
+                                                    href={`/admin/clients/view?id=${client.id}`}
                                                     className="w-12 h-12 flex items-center justify-center bg-slate-50 text-slate-400 rounded-[18px] hover:bg-slate-900 hover:text-white transition-all shadow-sm"
                                                     title="Manage Client"
                                                 >

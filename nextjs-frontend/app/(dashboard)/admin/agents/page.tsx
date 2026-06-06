@@ -266,7 +266,7 @@ export default function AgentsPage() {
                                                     <AlertCircle size={20} />
                                                 </button>
                                                 <Link 
-                                                    href={`/admin/agents/${agent.id}`}
+                                                    href={`/admin/agents/view?id=${agent.id}`}
                                                     className="px-8 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-[18px] text-[10px] font-black uppercase tracking-widest transition-all shadow-sm flex items-center gap-2"
                                                 >
                                                     Manage <ArrowUpRight size={14} />

@@ -13,36 +13,16 @@ return [
     |
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
+    |
     */
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
-        env('FRONTEND_URL', 'http://localhost:3000'),
-        'https://crm.webbuilders.lk',
-        'http://crm.webbuilders.lk',
-        'http://localhost:3000',
-        'http://localhost:3001',
-        'http://localhost:3002',
-        'http://localhost:3003',
-        'http://localhost:3004',
-        'http://localhost:3005',
-        'http://127.0.0.1:3000',
-        'http://127.0.0.1:3001',
-        'http://127.0.0.1:3002',
-        'http://127.0.0.1:3003',
-        'http://127.0.0.1:3004',
-        'http://127.0.0.1:3005',
-        'https://clientportal.webbuilders.lk',
-        'http://clientportal.webbuilders.lk'
-    ],
+    'allowed_origins' => ['*'],
 
-    'allowed_origins_patterns' => [
-        '#^http://localhost:\d+$#',
-        '#^http://127\.0\.0\.1:\d+$#',
-    ],
+    'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 
@@ -50,6 +30,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false,
 
 ];
