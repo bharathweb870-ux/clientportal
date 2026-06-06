@@ -1,0 +1,16 @@
+
+> nextjs-frontend@0.1.0 dev
+> next dev -p 3000
+
+   ▲ Next.js 15.5.18
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.8.154:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.9s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 729ms (115 modules)
+ ○ Compiling /login/client ...
+ ✓ Compiled /login/client in 8.6s (611 modules)
+ GET /login/client 200 in 9762ms

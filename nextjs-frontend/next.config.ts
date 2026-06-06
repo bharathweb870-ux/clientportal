@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Standalone output for easier deployment
-  output: "standalone",
+  // Static export for Netlify hosting
+  output: "export",
+
+  // Required for Netlify static export routing
+  trailingSlash: true,
 
   // Ignore ESLint errors during build
   eslint: {
