@@ -4,10 +4,6 @@ const nextConfig: NextConfig = {
   // Static export for GitHub Pages / Netlify / Cloudflare hosting
   output: "export",
 
-  // Required for GitHub Pages - repository name as base path
-  // Change 'clientportal' if your repo name is different
-  basePath: process.env.NODE_ENV === "production" ? "/clientportal" : "",
-
   // Required for static export routing
   trailingSlash: true,
 
