@@ -29,14 +29,14 @@ jobs:
       - name: Install dependencies
         working-directory: nextjs-frontend
         run: |
-          rm -f package-lock.json
-          npm install
+          rm -f package-lock.json yarn.lock
+          yarn install
 
       - name: Build
         working-directory: nextjs-frontend
         env:
           NEXT_PUBLIC_API_URL: https://webbuilders-api.infinityfreeapp.com/api
-        run: npm run build
+        run: yarn build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
