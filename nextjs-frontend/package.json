@@ -6,8 +6,7 @@
     "dev": "npx next dev",
     "build": "npx next build",
     "start": "npx next start",
-    "lint": "eslint",
-    "postinstall": "npm rebuild --update-binary || true"
+    "lint": "eslint"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.20",
