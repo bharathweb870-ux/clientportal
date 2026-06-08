@@ -17,6 +17,7 @@ use App\Http\Controllers\RenewalController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\WebsiteOrderController;
 use App\Http\Controllers\ExchangeRateController;
+use App\Http\Controllers\SupportTicketController;
 
 Route::get('/', function () {
     return response()->json(['message' => 'WebBuilders API is running!']);
@@ -65,6 +66,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/renewals/pay', [RenewalController::class, 'renew']);
         Route::post('/payhere/init/{invoiceId}', [PayHereController::class, 'initiate']);
         Route::post('/projects/{id}/upgrade', [ProjectController::class, 'upgrade']);
+        // Support Tickets
+        Route::get('/support-tickets', [SupportTicketController::class, 'index']);
+        Route::post('/support-tickets', [SupportTicketController::class, 'store']);
     });
 
     Route::middleware('role:admin')->group(function () {
@@ -87,5 +91,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/activity-logs', [\App\Http\Controllers\ActivityLogController::class, 'index']);
         Route::get('/settings', [SettingController::class, 'index']);
         Route::post('/settings', [SettingController::class, 'store']);
+        // Support Tickets admin management
+        Route::get('/support-tickets', [SupportTicketController::class, 'index']);
+        Route::put('/support-tickets/{id}', [SupportTicketController::class, 'update']);
     });
 });

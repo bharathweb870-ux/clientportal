@@ -10,6 +10,13 @@ return new class extends Migration
     {
         Schema::create('support_tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
+            $table->string('ticket_number')->unique();
+            $table->string('subject');
+            $table->text('description');
+            $table->string('service')->nullable();
+            $table->string('priority')->default('standard'); // standard, high, critical
+            $table->string('status')->default('open');       // open, in_progress, resolved, closed
             $table->timestamps();
         });
     }
