@@ -10,10 +10,11 @@ if (($_GET['key'] ?? '') !== $secret) {
 
 // ── Auto-detect Laravel base path ─────────────────────────────────────────
 $possibleBases = [
+    __DIR__,                                   // flat layout where test.php is in the same directory as vendor
     dirname(__DIR__),                          // test.php is in public/
     __DIR__ . '/laravel-backend',              // test.php is in domain root
     dirname(__DIR__) . '/laravel-backend',     // one level up
-    '/home/crmwebbuilders/api.crm.webbuilders.lk/laravel-backend', // absolute
+    '/home/crmwebbuilders/api.crm.webbuilders.lk', // absolute server path
 ];
 
 $base = null;
