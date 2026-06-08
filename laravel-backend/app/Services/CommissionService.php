@@ -37,6 +37,7 @@ class CommissionService
                 'client_id'  => $client->id,
                 'invoice_id' => $invoice->id,
                 'amount'     => $commissionAmount,
+                'percentage' => $commissionRate,
                 'type'       => 'online',
                 'status'     => 'pending',
                 'earned_at'  => now(),

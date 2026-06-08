@@ -103,8 +103,19 @@ class InvoiceController extends Controller
 
         if (!$commission) return;
 
-        $newAmount = $invoice->amount * ($commission->percentage / 100);
-        $commission->update(['amount' => $newAmount]);
+        $percentage = floatval($commission->percentage);
+        if ($percentage <= 0) {
+            $agent = \App\Models\Agent::find($commission->agent_id);
+            $percentage = $agent ? floatval($agent->commission_rate ?? 25) : 25;
+        }
+
+        $baseAmount = floatval($invoice->amount) - floatval($invoice->vat ?? 0) - floatval($invoice->tax ?? 0);
+        $newAmount = $baseAmount * ($percentage / 100);
+
+        $commission->update([
+            'amount' => $newAmount,
+            'percentage' => $percentage
+        ]);
     }
 
     private function syncWebsiteOrderProjectPricing(\App\Models\Invoice $invoice): void

@@ -44,13 +44,16 @@ class InvoiceService
 
         if (\App\Models\Commission::where('invoice_id', $invoice->id)->exists()) return 0;
 
-        $commissionAmount = $invoice->amount * ($agent->commission_rate / 100);
+        $commissionRate = $agent->commission_rate ?? 25;
+        $baseAmount = floatval($invoice->amount) - floatval($invoice->vat ?? 0) - floatval($invoice->tax ?? 0);
+        $commissionAmount = $baseAmount * ($commissionRate / 100);
 
         return \App\Models\Commission::create([
             'agent_id'   => $agent->id,
             'client_id'  => $client->id,
             'invoice_id' => $invoice->id,
             'amount'     => $commissionAmount,
+            'percentage' => $commissionRate,
             'status'     => 'pending',
         ]);
     }
