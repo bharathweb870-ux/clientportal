@@ -152,7 +152,7 @@ export default function ClientDashboard() {
                         className="flex items-center gap-3 bg-slate-900 text-white px-8 py-5 rounded-[24px] font-black uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl shadow-slate-900/20 text-[10px]"
                     >
                         <ShoppingBag size={18} />
-                        Order Website
+                        Order website
                     </Link>
                     <a
                         href="/WEBbuilder/html_output/oursites"
@@ -357,8 +357,8 @@ export default function ClientDashboard() {
                                                 <div
                                                     key={pkg.name}
                                                     className={`flex flex-col bg-white p-8 rounded-[48px] border-2 transition-all relative group ${isCurrent
-                                                            ? 'border-orange-500 shadow-2xl shadow-orange-500/10 scale-105 z-10'
-                                                            : 'border-white hover:border-orange-200 shadow-sm'
+                                                        ? 'border-orange-500 shadow-2xl shadow-orange-500/10 scale-105 z-10'
+                                                        : 'border-white hover:border-orange-200 shadow-sm'
                                                         }`}
                                                 >
                                                     {isPro && (
