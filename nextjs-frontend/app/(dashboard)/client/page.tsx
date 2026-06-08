@@ -1,12 +1,12 @@
 ﻿'use client';
 
 import { useState, useEffect } from 'react';
-import { 
-    Package, 
-    CreditCard, 
-    Calendar, 
-    AlertCircle, 
-    ChevronRight, 
+import {
+    Package,
+    CreditCard,
+    Calendar,
+    AlertCircle,
+    ChevronRight,
     Download,
     Globe,
     Server,
@@ -83,16 +83,16 @@ export default function ClientDashboard() {
 
     const handleUpgrade = async (packageName: string) => {
         if (!selectedProject) return;
-        
+
         setUpgrading(true);
         try {
             const response = await api.post(`/projects/${selectedProject.id}/upgrade`, {
                 package: packageName,
                 type: selectedProject.type
             });
-            
+
             setShowUpgradeModal(false);
-            
+
             if (response.data.requires_payment) {
                 alert(`Upgrade invoice generated! Redirecting to payment...`);
                 window.location.href = `/client/invoices`; // Redirect to invoices list
@@ -128,7 +128,7 @@ export default function ClientDashboard() {
                     <p className="text-slate-500 text-lg max-w-md mx-auto leading-relaxed font-medium">
                         Secure connection required to access your client portal.
                     </p>
-                    <button 
+                    <button
                         onClick={fetchClientDashboard}
                         className="mt-6 px-12 py-5 orange-gradient text-white rounded-2xl font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-orange-500/30"
                     >
@@ -147,7 +147,7 @@ export default function ClientDashboard() {
                     <p className="text-slate-500 mt-3 text-lg font-medium">Manage your active services and billing details.</p>
                 </div>
                 <div className="flex flex-wrap gap-4">
-                    <Link 
+                    <Link
                         href="/client/websites"
                         className="flex items-center gap-3 bg-slate-900 text-white px-8 py-5 rounded-[24px] font-black uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl shadow-slate-900/20 text-[10px]"
                     >
@@ -155,7 +155,7 @@ export default function ClientDashboard() {
                         Order Website
                     </Link>
                     <a
-                        href="/WEBbuilder/html_output/index.html"
+                        href="/WEBbuilder/html_output/oursites"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 bg-white border border-slate-100 text-slate-700 px-8 py-5 rounded-[24px] font-black uppercase tracking-widest hover:text-orange-600 hover:border-orange-200 transition-all shadow-sm text-[10px]"
@@ -163,7 +163,7 @@ export default function ClientDashboard() {
                         <ExternalLink size={18} />
                         Open Webbuilder
                     </a>
-                    <Link 
+                    <Link
                         href="/client/support"
                         className="flex items-center gap-3 orange-gradient text-white px-8 py-5 rounded-[24px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-orange-500/30 text-[10px]"
                     >
@@ -174,34 +174,34 @@ export default function ClientDashboard() {
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <StatCard 
-                    title="Active Services" 
-                    value={String(stats?.active_services || 0).padStart(2, '0')} 
+                <StatCard
+                    title="Active Services"
+                    value={String(stats?.active_services || 0).padStart(2, '0')}
                     icon={Package}
                     description="Running projects & hosting"
                 />
-                <StatCard 
-                    title="Due Amount" 
+                <StatCard
+                    title="Due Amount"
                     value={
                         Object.keys(stats?.due_amount_breakdown || {}).length > 1
                             ? 'Mixed'
                             : Object.keys(stats?.due_amount_breakdown || {}).length === 1
                                 ? `${Object.keys(stats.due_amount_breakdown)[0]} ${Number(stats.due_amount_breakdown[Object.keys(stats.due_amount_breakdown)[0]] || 0).toLocaleString()}`
                                 : `${(stats?.due_amount || 0).toLocaleString()}`
-                    } 
+                    }
                     icon={CreditCard}
                     trend={{ value: "Pending", positive: false }}
                     description={formatCurrencyBreakdown(stats?.due_amount_breakdown) || 'Pending invoices across services'}
                 />
-                <StatCard 
-                    title="Next Renewal" 
-                    value={stats?.next_renewal || 'None'} 
+                <StatCard
+                    title="Next Renewal"
+                    value={stats?.next_renewal || 'None'}
                     icon={Calendar}
                     description="Services & Hosting"
                 />
-                <StatCard 
-                    title="Support Tickets" 
-                    value={String(stats?.support_tickets || 0)} 
+                <StatCard
+                    title="Support Tickets"
+                    value={String(stats?.support_tickets || 0)}
                     icon={Clock}
                     description="All issues resolved"
                 />
@@ -216,22 +216,22 @@ export default function ClientDashboard() {
                         </div>
                         Active Projects
                     </h2>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {stats?.projects?.length > 0 ? stats.projects.map((project: any) => {
                             const isHosting = project.name.toLowerCase().includes('hosting') || (project.package && project.package.toLowerCase().includes('hosting'));
-                            
+
                             return (
                                 <div key={project.id} className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm group hover:border-orange-500/30 transition-all relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-32 h-32 orange-gradient opacity-5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
-                                    
+
                                     <div className="flex justify-between items-start mb-8 relative z-10">
                                         <div className="w-14 h-14 bg-slate-50 text-orange-600 rounded-2xl flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white transition-all duration-500">
                                             {isHosting ? <Globe size={28} /> : <Server size={28} />}
                                         </div>
                                         <span className="px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em]">{project.status}</span>
                                     </div>
-                                    
+
                                     <h3 className="text-2xl font-black text-slate-900 mb-2 relative z-10">{project.name}</h3>
                                     <div className="flex items-center gap-2 mb-6 relative z-10">
                                         <div className="px-3 py-1 bg-orange-50 text-orange-600 rounded-lg text-[9px] font-black uppercase tracking-widest border border-orange-100">
@@ -245,7 +245,7 @@ export default function ClientDashboard() {
                                             <p className="text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] mb-1">Execution</p>
                                             <p className="text-sm font-black text-slate-900">{project.progress || 0}% Complete</p>
                                         </div>
-                                        <button 
+                                        <button
                                             onClick={() => {
                                                 setSelectedProject(project);
                                                 setShowUpgradeModal(true);
@@ -274,9 +274,8 @@ export default function ClientDashboard() {
                             <div key={i} className="p-6 rounded-[32px] bg-slate-50 border border-transparent hover:border-orange-100 transition-all group">
                                 <div className="flex justify-between items-center mb-4">
                                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">#{inv.transaction_id || inv.id}</span>
-                                    <span className={`text-[10px] px-3 py-1.5 rounded-full font-black uppercase tracking-[0.1em] ${
-                                        inv.status === 'Paid' || inv.status === 'Success' || inv.status === 'paid' ? 'bg-green-50 text-green-600' : 'bg-orange-100 text-orange-600'
-                                    }`}>
+                                    <span className={`text-[10px] px-3 py-1.5 rounded-full font-black uppercase tracking-[0.1em] ${inv.status === 'Paid' || inv.status === 'Success' || inv.status === 'paid' ? 'bg-green-50 text-green-600' : 'bg-orange-100 text-orange-600'
+                                        }`}>
                                         {inv.status}
                                     </span>
                                 </div>
@@ -305,7 +304,7 @@ export default function ClientDashboard() {
             {showUpgradeModal && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/80 backdrop-blur-md animate-in fade-in duration-300">
                     <div className="bg-white w-full max-w-5xl h-[85vh] rounded-[64px] shadow-2xl relative overflow-hidden flex flex-col lg:flex-row">
-                        <button 
+                        <button
                             onClick={() => setShowUpgradeModal(false)}
                             className="absolute top-8 right-8 z-20 w-12 h-12 bg-white rounded-full flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition-all shadow-sm"
                         >
@@ -341,70 +340,69 @@ export default function ClientDashboard() {
                         <div className="lg:w-3/4 p-12 overflow-y-auto bg-slate-50/50">
                             <div className="max-w-4xl mx-auto">
                                 <h3 className="text-4xl font-black text-slate-900 uppercase tracking-tight mb-2">
-                                    {(selectedProject?.name.toLowerCase().includes('hosting') || (selectedProject?.package && selectedProject?.package.toLowerCase().includes('hosting'))) 
-                                        ? 'Hosting Solutions' 
+                                    {(selectedProject?.name.toLowerCase().includes('hosting') || (selectedProject?.package && selectedProject?.package.toLowerCase().includes('hosting')))
+                                        ? 'Hosting Solutions'
                                         : 'Management Services'}
                                 </h3>
                                 <p className="text-slate-500 font-medium mb-12">Select a strategic tier to optimize your digital infrastructure.</p>
 
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    {((selectedProject?.name.toLowerCase().includes('hosting') || (selectedProject?.package && selectedProject?.package.toLowerCase().includes('hosting'))) 
-                                        ? hostingPackages 
+                                    {((selectedProject?.name.toLowerCase().includes('hosting') || (selectedProject?.package && selectedProject?.package.toLowerCase().includes('hosting')))
+                                        ? hostingPackages
                                         : managementPackages).map((pkg) => {
-                                        const isCurrent = (selectedProject?.package || '') === pkg.name;
-                                        const isPro = pkg.name.includes('Pro');
+                                            const isCurrent = (selectedProject?.package || '') === pkg.name;
+                                            const isPro = pkg.name.includes('Pro');
 
-                                        return (
-                                            <div 
-                                                key={pkg.name}
-                                                className={`flex flex-col bg-white p-8 rounded-[48px] border-2 transition-all relative group ${
-                                                    isCurrent 
-                                                    ? 'border-orange-500 shadow-2xl shadow-orange-500/10 scale-105 z-10' 
-                                                    : 'border-white hover:border-orange-200 shadow-sm'
-                                                }`}
-                                            >
-                                                {isPro && (
-                                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-2 rounded-full text-[8px] font-black uppercase tracking-[0.2em] shadow-xl">Recommended</div>
-                                                )}
+                                            return (
+                                                <div
+                                                    key={pkg.name}
+                                                    className={`flex flex-col bg-white p-8 rounded-[48px] border-2 transition-all relative group ${isCurrent
+                                                            ? 'border-orange-500 shadow-2xl shadow-orange-500/10 scale-105 z-10'
+                                                            : 'border-white hover:border-orange-200 shadow-sm'
+                                                        }`}
+                                                >
+                                                    {isPro && (
+                                                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-2 rounded-full text-[8px] font-black uppercase tracking-[0.2em] shadow-xl">Recommended</div>
+                                                    )}
 
-                                                <div className="mb-8">
-                                                    <h4 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em] mb-2">{pkg.name}</h4>
-                                                    <div className="flex items-baseline gap-1">
-                                                        <span className="text-xs font-black text-slate-400">USD</span>
-                                                        <span className="text-4xl font-black text-slate-900 tracking-tighter">{pkg.price}</span>
-                                                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">/M</span>
-                                                    </div>
-                                                </div>
-
-                                                <div className="flex-1 space-y-4 mb-10">
-                                                    {(Array.isArray(pkg.features) ? pkg.features : []).map((f: any, i: number) => (
-                                                        <div key={i} className={`flex items-start gap-3 text-[10px] font-bold ${f.included ? 'text-slate-700' : 'text-slate-300'}`}>
-                                                            {f.included ? (
-                                                                <Check size={14} className="text-green-500 mt-0.5 shrink-0" />
-                                                            ) : (
-                                                                <Minus size={14} className="text-slate-200 mt-0.5 shrink-0" />
-                                                            )}
-                                                            <span className={f.included ? '' : 'line-through decoration-slate-200'}>{f.text}</span>
+                                                    <div className="mb-8">
+                                                        <h4 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em] mb-2">{pkg.name}</h4>
+                                                        <div className="flex items-baseline gap-1">
+                                                            <span className="text-xs font-black text-slate-400">USD</span>
+                                                            <span className="text-4xl font-black text-slate-900 tracking-tighter">{pkg.price}</span>
+                                                            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">/M</span>
                                                         </div>
-                                                    ))}
-                                                </div>
-
-                                                {!isCurrent ? (
-                                                    <button 
-                                                        disabled={upgrading}
-                                                        onClick={() => handleUpgrade(pkg.name)}
-                                                        className="w-full py-4 bg-slate-900 hover:bg-orange-600 text-white rounded-[24px] font-black uppercase tracking-widest text-[9px] transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-2"
-                                                    >
-                                                        {upgrading ? <Loader2 className="animate-spin" size={14} /> : 'Deploy Service'}
-                                                    </button>
-                                                ) : (
-                                                    <div className="w-full py-4 bg-orange-50 text-orange-600 rounded-[24px] font-black uppercase tracking-widest text-[9px] text-center border border-orange-100 flex items-center justify-center gap-2">
-                                                        Active <Check size={14} />
                                                     </div>
-                                                )}
-                                            </div>
-                                        );
-                                    })}
+
+                                                    <div className="flex-1 space-y-4 mb-10">
+                                                        {(Array.isArray(pkg.features) ? pkg.features : []).map((f: any, i: number) => (
+                                                            <div key={i} className={`flex items-start gap-3 text-[10px] font-bold ${f.included ? 'text-slate-700' : 'text-slate-300'}`}>
+                                                                {f.included ? (
+                                                                    <Check size={14} className="text-green-500 mt-0.5 shrink-0" />
+                                                                ) : (
+                                                                    <Minus size={14} className="text-slate-200 mt-0.5 shrink-0" />
+                                                                )}
+                                                                <span className={f.included ? '' : 'line-through decoration-slate-200'}>{f.text}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+
+                                                    {!isCurrent ? (
+                                                        <button
+                                                            disabled={upgrading}
+                                                            onClick={() => handleUpgrade(pkg.name)}
+                                                            className="w-full py-4 bg-slate-900 hover:bg-orange-600 text-white rounded-[24px] font-black uppercase tracking-widest text-[9px] transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-2"
+                                                        >
+                                                            {upgrading ? <Loader2 className="animate-spin" size={14} /> : 'Deploy Service'}
+                                                        </button>
+                                                    ) : (
+                                                        <div className="w-full py-4 bg-orange-50 text-orange-600 rounded-[24px] font-black uppercase tracking-widest text-[9px] text-center border border-orange-100 flex items-center justify-center gap-2">
+                                                            Active <Check size={14} />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
                                 </div>
                             </div>
                         </div>
