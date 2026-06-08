@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Invoice;
 use App\Models\Project;
 use App\Models\Client;
+use App\Models\Agent;
+use App\Models\Commission;
 use Illuminate\Support\Str;
 
 class InvoiceService
@@ -36,19 +38,19 @@ class InvoiceService
      */
     public function calculateCommission(Invoice $invoice)
     {
-        $client = \App\Models\Client::find($invoice->client_id);
+        $client = Client::find($invoice->client_id);
         if (!$client || !$client->agent_id) return 0;
 
-        $agent = \App\Models\Agent::where('user_id', $client->agent_id)->first();
+        $agent = Agent::where('user_id', $client->agent_id)->first();
         if (!$agent) return 0;
 
-        if (\App\Models\Commission::where('invoice_id', $invoice->id)->exists()) return 0;
+        if (Commission::where('invoice_id', $invoice->id)->exists()) return 0;
 
         $commissionRate = $agent->commission_rate ?? 25;
         $baseAmount = floatval($invoice->amount) - floatval($invoice->vat ?? 0) - floatval($invoice->tax ?? 0);
         $commissionAmount = $baseAmount * ($commissionRate / 100);
 
-        return \App\Models\Commission::create([
+        return Commission::create([
             'agent_id'   => $agent->id,
             'client_id'  => $client->id,
             'invoice_id' => $invoice->id,
