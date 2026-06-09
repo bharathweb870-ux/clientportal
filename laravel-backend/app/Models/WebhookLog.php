@@ -10,4 +10,8 @@ class WebhookLog extends Model
     use HasFactory;
     
     protected $guarded = [];
+
+    protected $casts = [
+        'payload' => 'array',
+    ];
 }

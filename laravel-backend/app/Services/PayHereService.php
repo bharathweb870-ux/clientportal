@@ -16,11 +16,17 @@ class PayHereService {
     }
 
     public function verifyCallback(Request $request): bool {
-        $localHash = $this->generateHash(
-            $request->order_id,
-            $request->payhere_amount,
-            $request->payhere_currency
-        );
+        $merchantId  = config('payhere.merchant_id');
+        $secret      = strtoupper(md5(config('payhere.merchant_secret')));
+        
+        $localHash = strtoupper(md5(
+            $merchantId . 
+            $request->order_id . 
+            $request->payhere_amount . 
+            $request->payhere_currency . 
+            $request->status_code . 
+            $secret
+        ));
         return $localHash === strtoupper($request->md5sig);
     }
 
@@ -56,11 +62,22 @@ class PayHereService {
         return [
             'sandbox'       => ($mode !== 'live'),
             'merchant_id'   => config('payhere.merchant_id'),
-            'return_url'    => url('/client/invoices?payment=success'),
-            'cancel_url'    => url('/client/invoices?payment=cancelled'),
+            'return_url'    => (env('FRONTEND_URL', 'https://portal.crm.webbuilders.lk') . '/client/invoices?payment=success'),
+            'cancel_url'    => (env('FRONTEND_URL', 'https://portal.crm.webbuilders.lk') . '/client/invoices?payment=cancelled'),
             'notify_url'    => $notifyUrl,
             'order_id'      => (string) $invoice->id,
-            'items'         => $invoice->service_breakdown ?? 'Service Payment',
+            'items'         => (function() use ($invoice) {
+                $raw = $invoice->service_breakdown ?? '';
+                if (!$raw) return 'Service Payment';
+                $decoded = json_decode($raw, true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                    $first = is_array($decoded[0] ?? null) ? ($decoded[0]) : $decoded;
+                    $name = $first['name'] ?? $first['order']['websiteName'] ?? $first['package'] ?? null;
+                    $type = $first['type'] ?? null;
+                    return trim(($type ? $type . ' - ' : '') . ($name ?? 'Service Payment'));
+                }
+                return strlen($raw) > 100 ? 'Service Payment' : $raw;
+            })(),
             'currency'      => $currency,
             'amount'        => number_format((float)$amount, 2, '.', ''),
             'hash'          => $this->generateHash($invoice->id, $amount, $currency),
