@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use App\Services\ExchangeRateService;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ClientVerificationMail;
+use App\Mail\ClientApprovedMail;
 
 class ClientController extends Controller
 {
@@ -456,11 +459,20 @@ class ClientController extends Controller
             ActivityLog::log($request, $isAgent ? 'CLIENT_PENDING' : 'CLIENT_REGISTERED',
                 "New client {$client->full_name} submitted by {$creator->role} ({$creator->name}). Verification link sent.");
 
+            $verificationUrl = url("/api/verify-email/{$verificationToken}");
+
+            // Send Email Notification to Client
+            try {
+                Mail::to($client->email)->send(new ClientVerificationMail($client, $verificationUrl));
+            } catch (\Exception $e) {
+                Log::error("Failed to send onboarding verification email: " . $e->getMessage());
+            }
+
             return response()->json([
                 'message' => $isAgent ? 'Verification link sent to client!' : 'Client registered successfully!',
                 'client' => $client,
                 'status' => $status,
-                'verification_url' => url("/api/verify-email/{$verificationToken}") // In real app, this goes in an Email
+                'verification_url' => $verificationUrl
             ], 201);
         } catch (\Exception $e) {
             Log::error('Admin Client Registration Error: ' . $e->getMessage());
@@ -783,6 +795,14 @@ class ClientController extends Controller
             }
 
             ActivityLog::log($request, 'CLIENT_APPROVED', "Admin approved client {$client->full_name}");
+
+            // Send Approval Email to Client
+            try {
+                $username = isset($user) ? $user->username : $client->email;
+                Mail::to($client->email)->send(new ClientApprovedMail($client, $username, $password));
+            } catch (\Exception $e) {
+                Log::error("Failed to send client approval email: " . $e->getMessage());
+            }
 
             DB::commit();
             return response()->json([
