@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { 
+import {
     MessageSquare, LifeBuoy, Send, Clock,
     CheckCircle2, AlertCircle, Mail, Phone, Loader2
 } from 'lucide-react';
@@ -17,12 +17,12 @@ interface Ticket {
 }
 
 export default function ClientSupportPage() {
-    const [submitted, setSubmitted]   = useState(false);
-    const [loading, setLoading]       = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [fetchingTickets, setFetchingTickets] = useState(true);
-    const [tickets, setTickets]       = useState<Ticket[]>([]);
+    const [tickets, setTickets] = useState<Ticket[]>([]);
     const [lastTicketNo, setLastTicketNo] = useState('');
-    const [error, setError]           = useState('');
+    const [error, setError] = useState('');
 
     const [form, setForm] = useState({
         subject: '',
@@ -35,7 +35,7 @@ export default function ClientSupportPage() {
     useEffect(() => {
         api.get('/support-tickets')
             .then(res => setTickets(res.data))
-            .catch(() => {})
+            .catch(() => { })
             .finally(() => setFetchingTickets(false));
     }, [submitted]);
 
@@ -94,7 +94,7 @@ export default function ClientSupportPage() {
                 <div className="lg:col-span-2">
                     <div className="bg-white border border-slate-100 p-16 rounded-[64px] shadow-sm relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 orange-gradient opacity-5 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none" />
-                        
+
                         {!submitted ? (
                             <div className="space-y-10">
                                 <div className="flex items-center gap-6 mb-10">
@@ -116,9 +116,9 @@ export default function ClientSupportPage() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-3">
                                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Strategic Service</label>
-                                        <select 
+                                        <select
                                             value={form.service}
-                                            onChange={e => setForm({...form, service: e.target.value})}
+                                            onChange={e => setForm({ ...form, service: e.target.value })}
                                             className="w-full bg-slate-50 border border-slate-100 rounded-[20px] py-4 px-8 text-slate-900 font-bold focus:ring-4 focus:ring-orange-500/10 outline-none transition-all appearance-none cursor-pointer shadow-sm"
                                         >
                                             <option value="">Select Asset</option>
@@ -130,9 +130,9 @@ export default function ClientSupportPage() {
                                     </div>
                                     <div className="space-y-3">
                                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Urgency Protocol</label>
-                                        <select 
+                                        <select
                                             value={form.priority}
-                                            onChange={e => setForm({...form, priority: e.target.value})}
+                                            onChange={e => setForm({ ...form, priority: e.target.value })}
                                             className="w-full bg-slate-50 border border-slate-100 rounded-[20px] py-4 px-8 text-slate-900 font-bold focus:ring-4 focus:ring-orange-500/10 outline-none transition-all appearance-none cursor-pointer shadow-sm"
                                         >
                                             <option value="standard">Standard Velocity</option>
@@ -142,27 +142,27 @@ export default function ClientSupportPage() {
                                     </div>
                                     <div className="md:col-span-2 space-y-3">
                                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Strategic Subject</label>
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
                                             value={form.subject}
-                                            onChange={e => setForm({...form, subject: e.target.value})}
-                                            className="w-full bg-slate-50 border border-slate-100 rounded-[20px] py-4 px-8 text-slate-900 font-bold focus:ring-4 focus:ring-orange-500/10 outline-none transition-all placeholder-slate-300 shadow-sm" 
-                                            placeholder="Brief summary of the issue" 
+                                            onChange={e => setForm({ ...form, subject: e.target.value })}
+                                            className="w-full bg-slate-50 border border-slate-100 rounded-[20px] py-4 px-8 text-slate-900 font-bold focus:ring-4 focus:ring-orange-500/10 outline-none transition-all placeholder-slate-300 shadow-sm"
+                                            placeholder="Brief summary of the issue"
                                         />
                                     </div>
                                     <div className="md:col-span-2 space-y-3">
                                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Incident Description</label>
-                                        <textarea 
-                                            rows={6} 
+                                        <textarea
+                                            rows={6}
                                             value={form.description}
-                                            onChange={e => setForm({...form, description: e.target.value})}
-                                            className="w-full bg-slate-50 border border-slate-100 rounded-[32px] py-6 px-8 text-slate-900 font-bold focus:ring-4 focus:ring-orange-500/10 outline-none transition-all resize-none placeholder-slate-300 shadow-sm" 
+                                            onChange={e => setForm({ ...form, description: e.target.value })}
+                                            className="w-full bg-slate-50 border border-slate-100 rounded-[32px] py-6 px-8 text-slate-900 font-bold focus:ring-4 focus:ring-orange-500/10 outline-none transition-all resize-none placeholder-slate-300 shadow-sm"
                                             placeholder="Provide as much technical detail as possible..."
                                         />
                                     </div>
                                 </div>
 
-                                <button 
+                                <button
                                     onClick={handleSubmit}
                                     disabled={loading}
                                     className="w-full py-6 orange-gradient text-white rounded-[24px] text-[10px] font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-2xl shadow-orange-500/30 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"
@@ -182,7 +182,7 @@ export default function ClientSupportPage() {
                                         Your ticket <strong className="text-slate-900">#{lastTicketNo}</strong> has been established. A specialist will engage via email shortly.
                                     </p>
                                 </div>
-                                <button 
+                                <button
                                     onClick={() => setSubmitted(false)}
                                     className="px-12 py-5 bg-slate-900 text-white rounded-[20px] text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20"
                                 >
@@ -241,7 +241,7 @@ export default function ClientSupportPage() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-black uppercase tracking-widest opacity-70">Hotline Protocol</p>
-                                    <p className="font-black text-lg tracking-tighter">+94 77 123 4567</p>
+                                    <a href="tel:+94769988123" className="font-black text-lg tracking-tighter hover:underline block">+94 76 998 8123</a>
                                 </div>
                             </div>
                             <div className="flex items-center gap-5">
@@ -250,7 +250,7 @@ export default function ClientSupportPage() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-black uppercase tracking-widest opacity-70">Direct Dispatch</p>
-                                    <p className="font-black text-lg tracking-tighter">support@webbuilders.lk</p>
+                                    <a href="mailto:admin@webbuilders.lk" className="font-black text-lg tracking-tighter hover:underline block">admin@webbuilders.lk</a>
                                 </div>
                             </div>
                         </div>
