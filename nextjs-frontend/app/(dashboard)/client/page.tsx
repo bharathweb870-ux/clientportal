@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import {
@@ -294,9 +294,12 @@ export default function ClientDashboard() {
                             </div>
                         )}
                     </div>
-                    <button className="w-full mt-10 py-5 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-2xl shadow-slate-900/20">
+                    <Link 
+                        href="/client/invoices"
+                        className="w-full mt-10 py-5 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-2xl shadow-slate-900/20 block text-center text-[10px]"
+                    >
                         Settlement Hub
-                    </button>
+                    </Link>
                 </div>
             </div>
 
