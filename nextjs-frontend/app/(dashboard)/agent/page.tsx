@@ -189,12 +189,12 @@ export default function AgentDashboard() {
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                <XAxis dataKey="name" stroke="#94a3b8" axisLine={false} tickLine={false} dy={15} fontSize={10} sm:fontSize={12} fontWeight={700} />
-                                <YAxis stroke="#94a3b8" axisLine={false} tickLine={false} fontSize={10} sm:fontSize={12} fontWeight={700} />
+                                <XAxis dataKey="name" stroke="#94a3b8" axisLine={false} tickLine={false} dy={15} fontSize={10} fontWeight={700} />
+                                <YAxis stroke="#94a3b8" axisLine={false} tickLine={false} fontSize={10} fontWeight={700} />
                                 <Tooltip 
                                     contentStyle={{ backgroundColor: '#ffffff', borderRadius: '24px', border: '1px solid #f1f5f9', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' }}
                                 />
-                                <Area type="monotone" dataKey="commission" stroke="#ff6b00" strokeWidth={4} sm:strokeWidth={5} fillOpacity={1} fill="url(#colorComm)" />
+                                <Area type="monotone" dataKey="commission" stroke="#ff6b00" strokeWidth={4} fillOpacity={1} fill="url(#colorComm)" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
