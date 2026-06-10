@@ -81,95 +81,69 @@ export default function AgentsPage() {
     const totalCommissionPool = agents.reduce((acc, a) => acc + Number(a.earned_commissions || 0) + Number(a.pending_commissions || 0), 0);
 
     return (
-        <div className="space-y-10 animate-in fade-in duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="space-y-6 sm:space-y-10 animate-in fade-in duration-700 pb-20 px-1 sm:px-0">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
                 <div>
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight uppercase">Agent Hub</h1>
-                    <p className="text-slate-500 mt-2 font-medium text-lg italic">Monitor agent performance and commission payouts.</p>
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight uppercase">Agent Hub</h1>
+                    <p className="text-slate-500 mt-1 sm:mt-2 font-medium text-sm sm:text-lg italic">Monitor agent performance and commission payouts.</p>
                 </div>
-                <div className="flex flex-wrap items-center gap-4">
-                    <div className="bg-white border border-slate-100 rounded-[24px] p-2 shadow-sm flex items-center gap-2">
-                        <button
-                            type="button"
-                            onClick={() => setSelectedCurrency('USD')}
-                            className={`px-5 py-3 rounded-[18px] text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
-                                selectedCurrency === 'USD' ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20' : 'text-slate-400 hover:text-slate-900'
-                            }`}
-                        >
-                            USD
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setSelectedCurrency('LKR')}
-                            className={`px-5 py-3 rounded-[18px] text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
-                                selectedCurrency === 'LKR' ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20' : 'text-slate-400 hover:text-slate-900'
-                            }`}
-                        >
-                            LKR
-                        </button>
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                    <div className="bg-white border border-slate-100 rounded-[18px] sm:rounded-[24px] p-1.5 sm:p-2 shadow-sm flex items-center gap-1">
+                        <button type="button" onClick={() => setSelectedCurrency('USD')} className={`px-3 sm:px-5 py-2 sm:py-3 rounded-[14px] sm:rounded-[18px] text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] transition-all ${selectedCurrency === 'USD' ? 'bg-slate-900 text-white shadow-lg' : 'text-slate-400'}`}>USD</button>
+                        <button type="button" onClick={() => setSelectedCurrency('LKR')} className={`px-3 sm:px-5 py-2 sm:py-3 rounded-[14px] sm:rounded-[18px] text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] transition-all ${selectedCurrency === 'LKR' ? 'bg-slate-900 text-white shadow-lg' : 'text-slate-400'}`}>LKR</button>
                     </div>
-                    <Link 
-                        href="/admin/agents/new"
-                        className="flex items-center justify-center gap-3 orange-gradient text-white px-10 py-5 rounded-[24px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-orange-500/30"
-                    >
-                        <Plus size={20} />
-                        Add New Agent
+                    <Link href="/admin/agents/new" className="flex items-center justify-center gap-2 sm:gap-3 orange-gradient text-white px-6 sm:px-10 py-3 sm:py-5 rounded-[18px] sm:rounded-[24px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-orange-500/30 text-[9px] sm:text-xs">
+                        <Plus size={16} className="sm:size-[20px]" />
+                        <span className="hidden sm:inline">Add New Agent</span>
+                        <span className="sm:hidden">Add Agent</span>
                     </Link>
                 </div>
             </div>
 
             {/* Performance Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-white border border-slate-100 p-8 rounded-[40px] shadow-sm flex items-center gap-8 relative overflow-hidden group">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
+                <div className="bg-white border border-slate-100 p-5 sm:p-8 rounded-[24px] sm:rounded-[40px] shadow-sm flex items-center gap-5 sm:gap-8 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 opacity-50 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-                    <div className="w-16 h-16 bg-slate-50 text-orange-600 rounded-2xl flex items-center justify-center shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 z-10">
-                        <Trophy size={32} />
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-50 text-orange-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 z-10 shrink-0">
+                        <Trophy size={24} className="sm:size-[32px]" />
                     </div>
                     <div className="z-10">
-                        <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Total Network</p>
-                        <p className="text-3xl font-black text-slate-900">{agents.length} Agents</p>
+                        <p className="text-slate-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] mb-1">Total Network</p>
+                        <p className="text-2xl sm:text-3xl font-black text-slate-900">{agents.length} Agents</p>
                     </div>
                 </div>
-                <div className="bg-white border border-slate-100 p-8 rounded-[40px] shadow-sm flex items-center gap-8 relative overflow-hidden group">
+                <div className="bg-white border border-slate-100 p-5 sm:p-8 rounded-[24px] sm:rounded-[40px] shadow-sm flex items-center gap-5 sm:gap-8 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-green-50 opacity-50 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-                    <div className="w-16 h-16 bg-slate-50 text-green-600 rounded-2xl flex items-center justify-center shadow-sm group-hover:bg-green-600 group-hover:text-white transition-all duration-500 z-10">
-                        <TrendingUp size={32} />
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-50 text-green-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-sm group-hover:bg-green-600 group-hover:text-white transition-all duration-500 z-10 shrink-0">
+                        <TrendingUp size={24} className="sm:size-[32px]" />
                     </div>
                     <div className="z-10">
-                        <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Growth Status</p>
-                        <p className="text-3xl font-black text-slate-900">Active</p>
+                        <p className="text-slate-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] mb-1">Growth Status</p>
+                        <p className="text-2xl sm:text-3xl font-black text-slate-900">Active</p>
                     </div>
                 </div>
-                <div className="bg-white border border-slate-100 p-8 rounded-[40px] shadow-sm flex items-center gap-8 relative overflow-hidden group">
+                <div className="bg-white border border-slate-100 p-5 sm:p-8 rounded-[24px] sm:rounded-[40px] shadow-sm flex items-center gap-5 sm:gap-8 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 opacity-50 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-                    <div className="w-16 h-16 bg-slate-50 text-blue-600 rounded-2xl flex items-center justify-center shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 z-10">
-                        <CreditCard size={32} />
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-50 text-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 z-10 shrink-0">
+                        <CreditCard size={24} className="sm:size-[32px]" />
                     </div>
                     <div className="z-10">
-                        <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Commission Pool</p>
-                        <p className="text-3xl font-black text-slate-900">
-                            {selectedCurrency} {convertAmount(totalCommissionPool).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                        </p>
+                        <p className="text-slate-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] mb-1">Commission Pool</p>
+                        <p className="text-xl sm:text-3xl font-black text-slate-900">{selectedCurrency} {convertAmount(totalCommissionPool).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                     </div>
                 </div>
             </div>
 
             {/* Search Bar */}
-            <div className="bg-white border border-slate-100 p-6 rounded-[32px] shadow-sm">
+            <div className="bg-white border border-slate-100 p-4 sm:p-6 rounded-[20px] sm:rounded-[32px] shadow-sm">
                 <div className="relative max-w-md group">
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors" size={20} />
-                    <input 
-                        type="text" 
-                        placeholder="Search agents..." 
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-100 rounded-[20px] py-4 pl-16 pr-8 text-sm text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all"
-                    />
+                    <Search className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors" size={16} />
+                    <input type="text" placeholder="Search agents..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-[16px] sm:rounded-[20px] py-3 sm:py-4 pl-10 sm:pl-16 pr-4 sm:pr-8 text-xs sm:text-sm text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all" />
                 </div>
             </div>
 
             {/* Agents Table */}
-            <div className="bg-white border border-slate-100 rounded-[48px] overflow-hidden shadow-sm min-h-[400px] flex flex-col">
+            <div className="bg-white border border-slate-100 rounded-[28px] sm:rounded-[48px] overflow-hidden shadow-sm min-h-[400px] flex flex-col">
                 {loading ? (
                     <div className="flex-1 flex flex-col items-center justify-center text-slate-400 gap-4">
                         <Loader2 className="animate-spin text-orange-500" size={60} />

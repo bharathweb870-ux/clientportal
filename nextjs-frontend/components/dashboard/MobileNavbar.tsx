@@ -14,9 +14,13 @@ import {
     Menu,
     X,
     User,
-    Bell
+    Bell,
+    Users,
+    Calendar,
+    Shield,
+    UserCircle
 } from 'lucide-react';
-import { clearRoleSession } from '@/lib/auth';
+import { clearRoleSession, type UserRole } from '@/lib/auth';
 import { resolveApiBaseUrl } from '@/lib/api';
 
 export default function MobileNavbar() {
@@ -25,12 +29,20 @@ export default function MobileNavbar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [userName, setUserName] = useState('User');
 
+    const isAdmin = pathname.startsWith('/admin');
+    const isAgent = pathname.startsWith('/agent');
+    const isClient = pathname.startsWith('/client');
+
+    const tokenKey = isAdmin ? 'admin_token' : (isAgent ? 'agent_token' : 'client_token');
+    const loginPath = isAdmin ? '/login/admin' : (isAgent ? '/login/agent' : '/login/client');
+    const roleKey = isAdmin ? 'admin' : (isAgent ? 'agent' : 'client') as UserRole;
+    const nameFallbackKey = isAdmin ? 'admin_name' : (isAgent ? 'agent_name' : 'client_name');
+
     useEffect(() => {
-        const tokenKey = 'client_token';
         const token = localStorage.getItem(tokenKey);
 
         if (!token) {
-            router.push('/login/client');
+            router.push(loginPath);
             return;
         }
 
@@ -46,8 +58,8 @@ export default function MobileNavbar() {
         })
         .then(res => {
             if (res.status === 401) {
-                clearRoleSession('client');
-                router.push('/login/client');
+                clearRoleSession(roleKey);
+                router.push(loginPath);
                 return null;
             }
             return res.json();
@@ -59,11 +71,29 @@ export default function MobileNavbar() {
         })
         .catch(err => {
             if (err.name === 'AbortError') return;
-            setUserName(localStorage.getItem('client_name') || 'User');
+            setUserName(localStorage.getItem(nameFallbackKey) || 'User');
         });
 
         return () => controller.abort();
-    }, [pathname, router]);
+    }, [pathname, router, tokenKey, loginPath, roleKey, nameFallbackKey]);
+
+    const agentMenu = [
+        { name: 'Overview', icon: LayoutDashboard, path: '/agent' },
+        { name: 'New Client', icon: UserCircle, path: '/agent/clients/new' },
+        { name: 'My Clients', icon: Users, path: '/agent/clients' },
+        { name: 'Commissions', icon: CreditCard, path: '/agent/commissions' },
+    ];
+
+    const adminMenu = [
+        { name: 'Overview', icon: LayoutDashboard, path: '/admin' },
+        { name: 'Clients', icon: Users, path: '/admin/clients' },
+        { name: 'Agents', icon: UserCircle, path: '/admin/agents' },
+        { name: 'Projects', icon: Briefcase, path: '/admin/projects' },
+        { name: 'Payments', icon: CreditCard, path: '/admin/payments' },
+        { name: 'Calendar', icon: Calendar, path: '/admin/calendar' },
+        { name: 'Security', icon: Shield, path: '/admin/activity-logs' },
+        { name: 'Settings', icon: Settings, path: '/admin/settings' },
+    ];
 
     const clientMenu = [
         { name: 'Overview', icon: LayoutDashboard, path: '/client' },
@@ -74,9 +104,11 @@ export default function MobileNavbar() {
         { name: 'Support', icon: Settings, path: '/client/support' },
     ];
 
+    const menuItems = isAdmin ? adminMenu : (isClient ? clientMenu : agentMenu);
+
     const handleLogout = () => {
-        clearRoleSession('client');
-        router.push('/login/client');
+        clearRoleSession(roleKey);
+        router.push(loginPath);
     };
 
     return (
@@ -131,9 +163,10 @@ export default function MobileNavbar() {
 
                         {/* Navigation Links */}
                         <nav className="flex-1 space-y-1.5">
-                            {clientMenu.map((item) => {
+                            {menuItems.map((item) => {
+                                const isRootPath = item.path === '/admin' || item.path === '/agent' || item.path === '/client';
                                 const isActive = pathname === item.path ||
-                                    (item.path !== '/client' && pathname.startsWith(item.path));
+                                    (!isRootPath && pathname.startsWith(item.path));
                                 return (
                                     <Link
                                         key={item.path}
@@ -160,7 +193,9 @@ export default function MobileNavbar() {
                                 </div>
                                 <div>
                                     <p className="text-xs font-black text-slate-900">{userName}</p>
-                                    <p className="text-[9px] text-orange-500 font-bold uppercase tracking-widest">Premium Account</p>
+                                    <p className="text-[9px] text-orange-500 font-bold uppercase tracking-widest">
+                                        {isAdmin ? 'Administrator' : (isAgent ? 'Partner Agent' : 'Premium Account')}
+                                    </p>
                                 </div>
                             </div>
 

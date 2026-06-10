@@ -220,18 +220,18 @@ export default function AdminDashboard() {
     }
 
     return (
-        <div className="space-y-10 animate-in fade-in duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-6 sm:space-y-10 animate-in fade-in duration-700 pb-20 px-1 sm:px-0">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
                 <div>
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight">Executive Overview</h1>
-                    <p className="text-slate-500 mt-3 text-lg font-medium">Manage your agency performance, revenue, and client growth.</p>
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Executive Overview</h1>
+                    <p className="text-slate-500 mt-2 sm:mt-3 text-sm sm:text-lg font-medium">Manage your agency performance, revenue, and client growth.</p>
                 </div>
-                <div className="flex flex-wrap items-center gap-4">
-                    <div className="bg-white border border-slate-100 rounded-[24px] p-2 shadow-sm flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                    <div className="bg-white border border-slate-100 rounded-[18px] sm:rounded-[24px] p-1.5 sm:p-2 shadow-sm flex items-center gap-1 sm:gap-2">
                         <button
                             type="button"
                             onClick={() => setSelectedCurrency('USD')}
-                            className={`px-5 py-3 rounded-[18px] text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
+                            className={`px-3 sm:px-5 py-2 sm:py-3 rounded-[14px] sm:rounded-[18px] text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
                                 selectedCurrency === 'USD' ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20' : 'text-slate-400 hover:text-slate-900'
                             }`}
                         >
@@ -240,22 +240,22 @@ export default function AdminDashboard() {
                         <button
                             type="button"
                             onClick={() => setSelectedCurrency('LKR')}
-                            className={`px-5 py-3 rounded-[18px] text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
+                            className={`px-3 sm:px-5 py-2 sm:py-3 rounded-[14px] sm:rounded-[18px] text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
                                 selectedCurrency === 'LKR' ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20' : 'text-slate-400 hover:text-slate-900'
                             }`}
                         >
                             LKR
                         </button>
                     </div>
-                    <div className="bg-white border border-slate-100 px-8 py-4 rounded-[24px] flex items-center gap-4 shadow-sm">
-                        <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Live Performance Sync</span>
+                    <div className="bg-white border border-slate-100 px-4 sm:px-8 py-3 sm:py-4 rounded-[18px] sm:rounded-[24px] flex items-center gap-3 sm:gap-4 shadow-sm">
+                        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                        <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Live Sync</span>
                     </div>
                 </div>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
                 <StatCard 
                     title="Total Revenue" 
                     value={paymentSummary.revenue} 
@@ -282,16 +282,16 @@ export default function AdminDashboard() {
                 />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-10">
                 {/* Revenue Chart */}
-                <div className="lg:col-span-2 bg-white border border-slate-100 p-10 rounded-[48px] shadow-sm relative overflow-hidden">
-                    <div className="flex items-center justify-between mb-10">
+                <div className="lg:col-span-2 bg-white border border-slate-100 p-6 sm:p-10 rounded-[28px] sm:rounded-[48px] shadow-sm relative overflow-hidden">
+                    <div className="flex items-center justify-between mb-6 sm:mb-10">
                         <div>
-                            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Financial Velocity</h2>
-                            <p className="text-sm text-slate-400 font-bold uppercase tracking-widest mt-1">Monthly Revenue Trends</p>
+                            <h2 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">Financial Velocity</h2>
+                            <p className="text-xs sm:text-sm text-slate-400 font-bold uppercase tracking-widest mt-1">Monthly Revenue Trends</p>
                         </div>
                     </div>
-                    <div className="h-[400px] w-full">
+                    <div className="h-[220px] sm:h-[400px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={stats?.monthly_revenue || []}>
                                 <defs>
@@ -301,21 +301,21 @@ export default function AdminDashboard() {
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                <XAxis dataKey="name" stroke="#94a3b8" axisLine={false} tickLine={false} dy={15} fontSize={12} fontWeight={700} />
-                                <YAxis stroke="#94a3b8" axisLine={false} tickLine={false} tickFormatter={(value) => `${value/1000}k`} fontSize={12} fontWeight={700} />
+                                <XAxis dataKey="name" stroke="#94a3b8" axisLine={false} tickLine={false} dy={15} fontSize={10} fontWeight={700} />
+                                <YAxis stroke="#94a3b8" axisLine={false} tickLine={false} tickFormatter={(value) => `${value/1000}k`} fontSize={10} fontWeight={700} />
                                 <Tooltip 
                                     contentStyle={{ backgroundColor: '#ffffff', borderRadius: '24px', border: '1px solid #f1f5f9', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' }}
                                 />
-                                <Area type="monotone" dataKey="revenue" stroke="#ff6b00" strokeWidth={5} fillOpacity={1} fill="url(#colorRev)" />
+                                <Area type="monotone" dataKey="revenue" stroke="#ff6b00" strokeWidth={4} fillOpacity={1} fill="url(#colorRev)" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
 
                 {/* Service Distribution */}
-                <div className="bg-white border border-slate-100 p-10 rounded-[48px] shadow-sm">
-                    <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-10 text-center uppercase">Asset Distribution</h2>
-                    <div className="h-[300px] w-full">
+                <div className="bg-white border border-slate-100 p-6 sm:p-10 rounded-[28px] sm:rounded-[48px] shadow-sm">
+                    <h2 className="text-base sm:text-2xl font-black text-slate-900 tracking-tight mb-6 sm:mb-10 text-center uppercase">Asset Distribution</h2>
+                    <div className="h-[200px] sm:h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={stats?.service_breakdown || []}>
                                 <XAxis dataKey="name" stroke="#94a3b8" axisLine={false} tickLine={false} fontSize={10} fontWeight={800} />
@@ -339,48 +339,48 @@ export default function AdminDashboard() {
             </div>
 
             {/* Critical Alerts */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div className="bg-blue-50 border border-blue-100 p-10 rounded-[48px] flex items-center gap-8 group hover:bg-blue-100/50 transition-all shadow-sm">
-                    <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center text-blue-500 shadow-xl shadow-blue-500/10">
-                        <ShoppingBag size={40} />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-10">
+                <div className="bg-blue-50 border border-blue-100 p-6 sm:p-10 rounded-[24px] sm:rounded-[48px] flex items-center gap-5 sm:gap-8 group hover:bg-blue-100/50 transition-all shadow-sm">
+                    <div className="w-14 h-14 sm:w-20 sm:h-20 bg-white rounded-2xl sm:rounded-3xl flex items-center justify-center text-blue-500 shadow-xl shadow-blue-500/10 shrink-0">
+                        <ShoppingBag size={28} className="sm:size-[40px]" />
                     </div>
                     <div>
-                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">Website Orders</h3>
-                        <p className="text-blue-600/70 font-bold text-sm mt-1 uppercase tracking-widest leading-relaxed">{websiteOrderCount} client purchases pending</p>
+                        <h3 className="text-base sm:text-2xl font-black text-slate-900 tracking-tight">Website Orders</h3>
+                        <p className="text-blue-600/70 font-bold text-[11px] sm:text-sm mt-1 uppercase tracking-widest leading-relaxed">{websiteOrderCount} purchases pending</p>
                         <Link 
                             href="/admin/projects" 
-                            className="mt-4 text-slate-900 font-black flex items-center gap-2 group-hover:gap-4 transition-all text-[10px] uppercase tracking-[0.2em]"
+                            className="mt-3 sm:mt-4 text-slate-900 font-black flex items-center gap-2 group-hover:gap-4 transition-all text-[9px] sm:text-[10px] uppercase tracking-[0.2em]"
                         >
-                            View Orders <ArrowUpRight size={18} className="text-blue-500" />
+                            View Orders <ArrowUpRight size={16} className="text-blue-500" />
                         </Link>
                     </div>
                 </div>
 
-                <div className="bg-red-50 border border-red-100 p-10 rounded-[48px] flex items-center gap-8 group hover:bg-red-100/50 transition-all shadow-sm">
-                    <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center text-red-500 shadow-xl shadow-red-500/10">
-                        <AlertCircle size={40} />
+                <div className="bg-red-50 border border-red-100 p-6 sm:p-10 rounded-[24px] sm:rounded-[48px] flex items-center gap-5 sm:gap-8 group hover:bg-red-100/50 transition-all shadow-sm">
+                    <div className="w-14 h-14 sm:w-20 sm:h-20 bg-white rounded-2xl sm:rounded-3xl flex items-center justify-center text-red-500 shadow-xl shadow-red-500/10 shrink-0">
+                        <AlertCircle size={28} className="sm:size-[40px]" />
                     </div>
                     <div>
-                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">Service Expirations</h3>
-                        <p className="text-red-600/70 font-bold text-sm mt-1 uppercase tracking-widest leading-relaxed">Action required: {stats?.expired_services_count || 0} renewals pending</p>
+                        <h3 className="text-base sm:text-2xl font-black text-slate-900 tracking-tight">Expirations</h3>
+                        <p className="text-red-600/70 font-bold text-[11px] sm:text-sm mt-1 uppercase tracking-widest leading-relaxed">{stats?.expired_services_count || 0} renewals pending</p>
                         <Link 
                             href="/admin/calendar" 
-                            className="mt-4 text-slate-900 font-black flex items-center gap-2 group-hover:gap-4 transition-all text-[10px] uppercase tracking-[0.2em]"
+                            className="mt-3 sm:mt-4 text-slate-900 font-black flex items-center gap-2 group-hover:gap-4 transition-all text-[9px] sm:text-[10px] uppercase tracking-[0.2em]"
                         >
-                            Manage Renewals <ArrowUpRight size={18} className="text-red-500" />
+                            Manage <ArrowUpRight size={16} className="text-red-500" />
                         </Link>
                     </div>
                 </div>
 
-                <div className="bg-orange-50 border border-orange-100 p-10 rounded-[48px] flex items-center gap-8 group hover:bg-orange-100/50 transition-all shadow-sm">
-                    <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center text-orange-500 shadow-xl shadow-orange-500/10">
-                        <TrendingUp size={40} />
+                <div className="bg-orange-50 border border-orange-100 p-6 sm:p-10 rounded-[24px] sm:rounded-[48px] flex items-center gap-5 sm:gap-8 group hover:bg-orange-100/50 transition-all shadow-sm">
+                    <div className="w-14 h-14 sm:w-20 sm:h-20 bg-white rounded-2xl sm:rounded-3xl flex items-center justify-center text-orange-500 shadow-xl shadow-orange-500/10 shrink-0">
+                        <TrendingUp size={28} className="sm:size-[40px]" />
                     </div>
                     <div>
-                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">Onboarding Requests</h3>
-                        <p className="text-orange-600/70 font-bold text-sm mt-1 uppercase tracking-widest leading-relaxed">{stats?.new_requests_count || 0} new registrations today</p>
-                        <a href="/admin/clients?status=pending" className="mt-4 text-slate-900 font-black flex items-center gap-2 group-hover:gap-4 transition-all text-[10px] uppercase tracking-[0.2em]">
-                            Approve Access <ArrowUpRight size={18} className="text-orange-500" />
+                        <h3 className="text-base sm:text-2xl font-black text-slate-900 tracking-tight">Onboarding</h3>
+                        <p className="text-orange-600/70 font-bold text-[11px] sm:text-sm mt-1 uppercase tracking-widest leading-relaxed">{stats?.new_requests_count || 0} new today</p>
+                        <a href="/admin/clients?status=pending" className="mt-3 sm:mt-4 text-slate-900 font-black flex items-center gap-2 group-hover:gap-4 transition-all text-[9px] sm:text-[10px] uppercase tracking-[0.2em]">
+                            Approve <ArrowUpRight size={16} className="text-orange-500" />
                         </a>
                     </div>
                 </div>

@@ -55,29 +55,17 @@ export default function DashboardLayout({
         );
     }
 
-    const isClientRoute = pathname.startsWith('/client');
-
     return (
         <div className="flex min-h-screen bg-white text-slate-900">
-            {isClientRoute ? (
-                <div className="hidden lg:flex">
-                    <Sidebar />
-                </div>
-            ) : (
+            <div className="hidden lg:flex">
                 <Sidebar />
-            )}
+            </div>
             <div className="flex-1 flex flex-col">
-                {isClientRoute ? (
-                    <>
-                        <div className="hidden lg:block">
-                            <TopBar />
-                        </div>
-                        <MobileNavbar />
-                    </>
-                ) : (
+                <div className="hidden lg:block">
                     <TopBar />
-                )}
-                <main className={`flex-1 overflow-y-auto bg-slate-50/50 ${isClientRoute ? 'p-4 sm:p-6 lg:p-10' : 'p-6 lg:p-10'}`}>
+                </div>
+                <MobileNavbar />
+                <main className="flex-1 overflow-y-auto bg-slate-50/50 p-4 sm:p-6 lg:p-10">
                     <div className="max-w-7xl mx-auto">
                         {children}
                     </div>

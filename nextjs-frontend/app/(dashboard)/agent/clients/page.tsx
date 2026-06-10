@@ -86,53 +86,53 @@ export default function AgentClientsPage() {
     };
 
     return (
-        <div className="space-y-10 animate-in fade-in duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="space-y-6 sm:space-y-10 animate-in fade-in duration-700 pb-20">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight uppercase">Your Clients</h1>
-                    <p className="text-slate-500 mt-2 font-medium text-lg italic">Manage and support the clients you have registered.</p>
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight uppercase">Your Clients</h1>
+                    <p className="text-slate-500 mt-2 font-medium text-base sm:text-lg italic">Manage and support the clients you have registered.</p>
                 </div>
                 <Link 
                     href="/agent/clients/new"
-                    className="flex items-center justify-center gap-3 orange-gradient text-white px-10 py-5 rounded-[24px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-orange-500/30"
+                    className="flex items-center justify-center gap-3 orange-gradient text-white px-6 sm:px-10 py-4 sm:py-5 rounded-[18px] sm:rounded-[24px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-orange-500/30 text-[10px] sm:text-xs self-start sm:self-auto"
                 >
-                    <Plus size={20} />
-                    Register New Client
+                    <Plus size={18} className="sm:size-[20px]" />
+                    Register Client
                 </Link>
             </div>
 
             {/* Filters Bar */}
-            <div className="bg-white border border-slate-100 p-6 rounded-[32px] flex flex-wrap items-center gap-6 shadow-sm">
-                <div className="relative flex-1 min-w-[300px]">
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+            <div className="bg-white border border-slate-100 p-4 sm:p-6 rounded-[20px] sm:rounded-[32px] flex flex-wrap items-center gap-4 sm:gap-6 shadow-sm">
+                <div className="relative flex-1 min-w-0 w-full">
+                    <Search className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-slate-400" size={18} className="sm:size-[20px]" />
                     <input 
                         type="text" 
                         placeholder="Search your clients..." 
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-100 rounded-[20px] py-4 pl-16 pr-8 text-sm text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all"
+                        className="w-full bg-slate-50 border border-slate-100 rounded-[16px] sm:rounded-[20px] py-3 sm:py-4 pl-12 sm:pl-16 pr-6 sm:pr-8 text-xs sm:text-sm text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all"
                     />
                 </div>
             </div>
 
             {/* Clients Table */}
-            <div className="bg-white border border-slate-100 rounded-[48px] overflow-hidden shadow-sm min-h-[400px] flex flex-col">
+            <div className="bg-white border border-slate-100 rounded-[24px] sm:rounded-[48px] overflow-hidden shadow-sm min-h-[400px] flex flex-col">
                 {loading ? (
                     <div className="flex-1 flex flex-col items-center justify-center text-slate-400 gap-4">
                         <Loader2 className="animate-spin text-orange-500" size={60} />
                         <p className="font-black tracking-widest uppercase text-[10px]">Loading Clients...</p>
                     </div>
                 ) : isAuthMissing ? (
-                    <div className="flex-1 flex flex-col items-center justify-center text-center space-y-8 p-20">
-                        <div className="w-24 h-24 bg-orange-50 rounded-[32px] flex items-center justify-center text-orange-500 border border-orange-100 shadow-xl shadow-orange-500/10">
-                            <Shield size={48} />
+                    <div className="flex-1 flex flex-col items-center justify-center text-center space-y-8 p-12 sm:p-20">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 bg-orange-50 rounded-[24px] sm:rounded-[32px] flex items-center justify-center text-orange-500 border border-orange-100 shadow-xl shadow-orange-500/10">
+                            <Shield size={40} className="sm:size-[48px]" />
                         </div>
                         <div className="space-y-2">
-                            <p className="text-slate-900 font-black text-2xl uppercase tracking-tighter">Auth Required</p>
-                            <p className="text-slate-500 text-sm max-w-xs mx-auto font-medium">Please authenticate to view your clients.</p>
+                            <p className="text-slate-900 font-black text-xl sm:text-2xl uppercase tracking-tighter">Auth Required</p>
+                            <p className="text-slate-500 text-xs sm:text-sm max-w-xs mx-auto font-medium">Please authenticate to view your clients.</p>
                             <button 
                                 onClick={fetchClients}
-                                className="mt-8 px-10 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-[20px] text-[10px] font-black uppercase tracking-widest transition-all shadow-xl shadow-slate-900/20"
+                                className="mt-6 sm:mt-8 px-8 sm:px-10 py-3.5 sm:py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-[16px] sm:rounded-[20px] text-[10px] font-black uppercase tracking-widest transition-all shadow-xl shadow-slate-900/20"
                             >
                                 Retry Connection
                             </button>
@@ -140,26 +140,26 @@ export default function AgentClientsPage() {
                     </div>
                 ) : filteredClients.length > 0 ? (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
+                        <table className="w-full text-left border-collapse min-w-[700px] sm:min-w-0">
                             <thead>
                                 <tr className="bg-slate-50 border-b border-slate-100">
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Client & Company</th>
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Contact Details</th>
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Status</th>
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Actions</th>
+                                    <th className="p-4 sm:p-6 lg:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Client & Company</th>
+                                    <th className="p-4 sm:p-6 lg:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Contact Details</th>
+                                    <th className="p-4 sm:p-6 lg:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Status</th>
+                                    <th className="p-4 sm:p-6 lg:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50">
                                 {filteredClients.map((client) => (
                                     <tr key={client.id} className="hover:bg-slate-50/50 transition-all group">
-                                        <td className="p-8">
-                                            <div className="flex items-center gap-5">
-                                                <div className="w-16 h-16 orange-gradient rounded-[24px] flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                                        <td className="p-4 sm:p-6 lg:p-8">
+                                            <div className="flex items-center gap-3 sm:gap-5">
+                                                <div className="w-12 h-12 sm:w-16 sm:h-16 orange-gradient rounded-[16px] sm:rounded-[24px] flex items-center justify-center text-white font-black text-xl sm:text-2xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform shrink-0">
                                                     {(client.full_name || client.name || 'C')[0]}
                                                 </div>
                                                 <div>
-                                                    <p className="text-slate-900 font-black text-lg">{client.full_name || client.name || 'Unnamed Client'}</p>
-                                                    <div className="flex items-center gap-1.5 text-slate-400 text-[10px] font-black uppercase tracking-widest mt-1">
+                                                    <p className="text-slate-900 font-black text-base sm:text-lg leading-snug">{client.full_name || client.name || 'Unnamed Client'}</p>
+                                                    <div className="flex items-center gap-1.5 text-slate-400 text-[9px] sm:text-[10px] font-black uppercase tracking-widest mt-1">
                                                         <Building2 size={12} className="text-orange-500" />
                                                         {client.company_name || client.company || 'Individual Account'}
                                                     </div>
@@ -167,38 +167,38 @@ export default function AgentClientsPage() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-8">
-                                            <div className="space-y-2">
-                                                <div className="flex items-center gap-2.5 text-slate-600 text-sm font-bold">
-                                                    <div className="w-8 h-8 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400">
-                                                        <Mail size={14} />
+                                        <td className="p-4 sm:p-6 lg:p-8">
+                                            <div className="space-y-1.5 sm:space-y-2">
+                                                <div className="flex items-center gap-2 text-slate-600 text-xs sm:text-sm font-bold truncate max-w-[200px]">
+                                                    <div className="w-7 h-7 sm:w-8 sm:h-8 bg-slate-100 rounded-lg sm:rounded-xl flex items-center justify-center text-slate-400 shrink-0">
+                                                        <Mail size={12} className="sm:size-[14px]" />
                                                     </div>
                                                     {client.email || 'No Email'}
                                                 </div>
-                                                <div className="flex items-center gap-2.5 text-slate-600 text-sm font-bold">
-                                                    <div className="w-8 h-8 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400">
-                                                        <Phone size={14} />
+                                                <div className="flex items-center gap-2 text-slate-600 text-xs sm:text-sm font-bold">
+                                                    <div className="w-7 h-7 sm:w-8 sm:h-8 bg-slate-100 rounded-lg sm:rounded-xl flex items-center justify-center text-slate-400 shrink-0">
+                                                        <Phone size={12} className="sm:size-[14px]" />
                                                     </div>
                                                     {client.phone || client.whatsapp || 'No Phone'}
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-8">
-                                            <div className="flex flex-col gap-2">
-                                                <span className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest text-center ${
+                                        <td className="p-4 sm:p-6 lg:p-8">
+                                            <div className="flex flex-col gap-1.5 sm:gap-2 max-w-[120px]">
+                                                <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-center ${
                                                     client.status === 'active' ? 'bg-green-50 text-green-600' : 'bg-orange-50 text-orange-600'
                                                 }`}>
                                                     Acc: {client.status || 'Active'}
                                                 </span>
-                                                <span className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest text-center ${
+                                                <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-center ${
                                                     client.payment_status === 'Paid' ? 'bg-blue-50 text-blue-600' : 'bg-slate-50 text-slate-400'
                                                 }`}>
                                                     Pay: {client.payment_status || 'Pending'}
                                                 </span>
                                             </div>
                                         </td>
-                                        <td className="p-8 text-right">
-                                            <Link href={`/agent/clients/view?id=${client.id}`} className="px-6 py-3 bg-slate-900 text-white rounded-[18px] text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 transition-all shadow-sm">
+                                        <td className="p-4 sm:p-6 lg:p-8 text-right">
+                                            <Link href={`/agent/clients/view?id=${client.id}`} className="px-4 sm:px-6 py-2.5 sm:py-3 bg-slate-900 text-white rounded-[14px] sm:rounded-[18px] text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 transition-all shadow-sm whitespace-nowrap">
                                                 Manage
                                             </Link>
                                         </td>
@@ -208,7 +208,7 @@ export default function AgentClientsPage() {
                         </table>
                     </div>
                 ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center p-20 text-center gap-6">
+                    <div className="flex-1 flex flex-col items-center justify-center p-12 sm:p-20 text-center gap-6">
                         <Users size={60} className="text-slate-100" />
                         <p className="text-slate-400 font-black uppercase tracking-[0.2em] text-xs">No clients found. Try registering a new one!</p>
                     </div>

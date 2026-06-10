@@ -262,28 +262,29 @@ export default function ClientsPage() {
     });
 
     return (
-        <div className="space-y-10 animate-in fade-in duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="space-y-6 sm:space-y-10 animate-in fade-in duration-700 pb-20 px-1 sm:px-0">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
                 <div>
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight uppercase">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight uppercase">
                         {urlStatus === 'pending' ? 'Approval Queue' : 'Client Network'}
                     </h1>
-                    <p className="text-slate-500 mt-2 font-medium text-lg italic">
+                    <p className="text-slate-500 mt-1 sm:mt-2 font-medium text-sm sm:text-lg italic">
                         {urlStatus === 'pending' ? 'Review and activate new registrations from your agents.' : 'View and manage all registered clients for WEBbuilders.lk'}
                     </p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-3 sm:gap-4">
                     {urlStatus && (
-                        <Link href="/admin/clients" className="flex items-center justify-center px-8 bg-slate-100 text-slate-600 rounded-[24px] font-black uppercase tracking-widest text-[10px]">
+                        <Link href="/admin/clients" className="flex items-center justify-center px-5 sm:px-8 py-3 bg-slate-100 text-slate-600 rounded-[18px] sm:rounded-[24px] font-black uppercase tracking-widest text-[9px] sm:text-[10px]">
                             View All
                         </Link>
                     )}
                     <Link 
                         href="/admin/clients/new"
-                        className="flex items-center justify-center gap-3 orange-gradient text-white px-10 py-5 rounded-[24px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-orange-500/30"
+                        className="flex items-center justify-center gap-2 sm:gap-3 orange-gradient text-white px-6 sm:px-10 py-3 sm:py-5 rounded-[18px] sm:rounded-[24px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-orange-500/30 text-[9px] sm:text-xs"
                     >
-                        <Plus size={20} />
-                        Register New Client
+                        <Plus size={16} className="sm:size-[20px]" />
+                        <span className="hidden sm:inline">Register New Client</span>
+                        <span className="sm:hidden">Register</span>
                     </Link>
                 </div>
             </div>
@@ -473,21 +474,21 @@ export default function ClientsPage() {
             )}
 
             {/* Filters Bar */}
-            <div className="bg-white border border-slate-100 p-6 rounded-[32px] flex flex-wrap items-center gap-6 shadow-sm">
-                <div className="relative flex-1 min-w-[300px]">
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+            <div className="bg-white border border-slate-100 p-4 sm:p-6 rounded-[20px] sm:rounded-[32px] flex flex-wrap items-center gap-4 sm:gap-6 shadow-sm">
+                <div className="relative flex-1 min-w-[200px]">
+                    <Search className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                     <input 
                         type="text" 
                         placeholder="Search by name, company, or email..." 
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-100 rounded-[20px] py-4 pl-16 pr-8 text-sm text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all"
+                        className="w-full bg-slate-50 border border-slate-100 rounded-[16px] sm:rounded-[20px] py-3 sm:py-4 pl-10 sm:pl-16 pr-4 sm:pr-8 text-xs sm:text-sm text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:bg-white transition-all"
                     />
                 </div>
             </div>
 
             {/* Clients Table */}
-            <div className="bg-white border border-slate-100 rounded-[48px] overflow-hidden shadow-sm min-h-[400px] flex flex-col">
+            <div className="bg-white border border-slate-100 rounded-[28px] sm:rounded-[48px] overflow-hidden shadow-sm min-h-[400px] flex flex-col">
                 {loading ? (
                     <div className="flex-1 flex flex-col items-center justify-center text-slate-400 gap-4">
                         <Loader2 className="animate-spin text-orange-500" size={60} />
@@ -495,37 +496,35 @@ export default function ClientsPage() {
                     </div>
                 ) : filteredClients.length > 0 ? (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
+                        <table className="w-full text-left border-collapse min-w-[700px]">
                             <thead>
                                 <tr className="bg-slate-50 border-b border-slate-100">
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Client & Company</th>
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Contact Details</th>
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Account Status</th>
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Payment Status</th>
-                                    <th className="p-8 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Actions</th>
+                                    <th className="p-4 sm:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Client & Company</th>
+                                    <th className="p-4 sm:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hidden sm:table-cell">Contact</th>
+                                    <th className="p-4 sm:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Status</th>
+                                    <th className="p-4 sm:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hidden sm:table-cell">Payment</th>
+                                    <th className="p-4 sm:p-8 text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50">
                                 {filteredClients.map((client) => (
                                     <tr key={client.id} className="hover:bg-slate-50/50 transition-all group">
-                                        <td className="p-8">
-                                            <div className="flex items-center gap-5">
-                                                <div className="w-16 h-16 orange-gradient rounded-[24px] flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                                        <td className="p-4 sm:p-8">
+                                            <div className="flex items-center gap-3 sm:gap-5">
+                                                <div className="w-10 h-10 sm:w-16 sm:h-16 orange-gradient rounded-[14px] sm:rounded-[24px] flex items-center justify-center text-white font-black text-base sm:text-2xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform shrink-0">
                                                     {(client.full_name || client.name || 'C')[0]}
                                                 </div>
-                                                <div>
-                                                    <p className="text-slate-900 font-black text-lg">{client.full_name || client.name}</p>
-                                                    <div className="flex items-center gap-1.5 text-slate-400 text-[10px] font-black uppercase tracking-widest mt-1">
-                                                        <Building2 size={12} className="text-orange-500" />
-                                                        {client.company_name || 'Individual Account'}
-                                                        <span className="mx-2 text-slate-300">•</span>
-                                                        Added By: <span className="text-blue-600 font-black">{client.agent_name || 'Admin'}</span>
+                                                <div className="min-w-0">
+                                                    <p className="text-slate-900 font-black text-sm sm:text-lg truncate">{client.full_name || client.name}</p>
+                                                    <div className="flex flex-wrap items-center gap-1 text-slate-400 text-[9px] sm:text-[10px] font-black uppercase tracking-widest mt-1">
+                                                        <Building2 size={10} className="text-orange-500 shrink-0" />
+                                                        <span className="truncate max-w-[120px] sm:max-w-none">{client.company_name || 'Individual'}</span>
                                                     </div>
                                                     {renderServices(client)}
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-8">
+                                        <td className="p-4 sm:p-8 hidden sm:table-cell">
                                             <div className="space-y-2">
                                                 <div className="flex items-center gap-2.5 text-slate-600 text-sm font-bold">
                                                     <Mail size={14} className="text-slate-400" />
@@ -542,15 +541,15 @@ export default function ClientsPage() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-8">
-                                            <span className={`px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] ${
+                                        <td className="p-4 sm:p-8">
+                                            <span className={`px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] ${
                                                 client.status === 'active' ? 'bg-green-50 text-green-600' : 'bg-orange-50 text-orange-600'
                                             }`}>
                                                 {client.status || 'Active'}
                                             </span>
                                         </td>
-                                        <td className="p-8">
-                                            <span className={`px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] ${
+                                        <td className="p-4 sm:p-8 hidden sm:table-cell">
+                                            <span className={`px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] ${
                                                 client.payment_status === 'paid' ? 'bg-green-50 text-green-600' : 
                                                 client.payment_status === 'partial' ? 'bg-blue-50 text-blue-600' : 
                                                 'bg-red-50 text-red-600'
@@ -558,37 +557,37 @@ export default function ClientsPage() {
                                                 {client.payment_status || 'Pending'}
                                             </span>
                                         </td>
-                                        <td className="p-8 text-right">
-                                            <div className="flex justify-end gap-3 flex-wrap">
+                                        <td className="p-4 sm:p-8 text-right">
+                                            <div className="flex justify-end gap-2 sm:gap-3 flex-wrap">
                                                 {!client.is_verified && (
                                                     <button
                                                         onClick={() => handleForceVerify(client.id)}
                                                         disabled={isVerifying === client.id}
                                                         title="Admin: Force Verify Email"
-                                                        className="px-5 h-12 flex items-center gap-2 bg-blue-50 text-blue-600 hover:bg-blue-500 hover:text-white rounded-[18px] transition-all shadow-sm font-black uppercase tracking-widest text-[10px] disabled:opacity-50"
+                                                        className="px-3 sm:px-5 h-9 sm:h-12 flex items-center gap-1.5 sm:gap-2 bg-blue-50 text-blue-600 hover:bg-blue-500 hover:text-white rounded-[14px] sm:rounded-[18px] transition-all shadow-sm font-black uppercase tracking-widest text-[9px] sm:text-[10px] disabled:opacity-50"
                                                     >
                                                         {isVerifying === client.id ? (
-                                                            <Loader2 size={14} className="animate-spin" />
+                                                            <Loader2 size={12} className="animate-spin" />
                                                         ) : (
-                                                            <CheckCircle2 size={14} />
+                                                            <CheckCircle2 size={12} />
                                                         )}
-                                                        Verify
+                                                        <span className="hidden sm:inline">Verify</span>
                                                     </button>
                                                 )}
                                                 {client.status === 'pending' && (
                                                     <button 
                                                         onClick={() => setApprovingClient(client)}
-                                                        className="px-6 h-12 flex items-center justify-center bg-green-500 text-white rounded-[18px] transition-all shadow-lg shadow-green-500/20 font-black uppercase tracking-widest text-[10px]"
+                                                        className="px-3 sm:px-6 h-9 sm:h-12 flex items-center justify-center bg-green-500 text-white rounded-[14px] sm:rounded-[18px] transition-all shadow-lg shadow-green-500/20 font-black uppercase tracking-widest text-[9px] sm:text-[10px]"
                                                     >
                                                         Approve
                                                     </button>
                                                 )}
                                                 <Link 
                                                     href={`/admin/clients/view?id=${client.id}`}
-                                                    className="w-12 h-12 flex items-center justify-center bg-slate-50 text-slate-400 rounded-[18px] hover:bg-slate-900 hover:text-white transition-all shadow-sm"
+                                                    className="w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-50 text-slate-400 rounded-[14px] sm:rounded-[18px] hover:bg-slate-900 hover:text-white transition-all shadow-sm"
                                                     title="Manage Client"
                                                 >
-                                                    <ArrowUpRight size={20} />
+                                                    <ArrowUpRight size={16} className="sm:size-[20px]" />
                                                 </Link>
                                                 <button 
                                                     onClick={() => {
@@ -596,9 +595,9 @@ export default function ClientsPage() {
                                                             api.delete(`/clients/${client.id}`).then(() => fetchClients());
                                                         }
                                                     }}
-                                                    className="w-12 h-12 flex items-center justify-center bg-red-50 text-red-500 rounded-[18px] hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                                    className="w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center bg-red-50 text-red-500 rounded-[14px] sm:rounded-[18px] hover:bg-red-500 hover:text-white transition-all shadow-sm"
                                                 >
-                                                    <AlertCircle size={20} />
+                                                    <AlertCircle size={16} className="sm:size-[20px]" />
                                                 </button>
                                             </div>
                                         </td>
@@ -608,7 +607,7 @@ export default function ClientsPage() {
                         </table>
                     </div>
                 ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center p-20 text-center gap-6">
+                    <div className="flex-1 flex flex-col items-center justify-center p-12 sm:p-20 text-center gap-6">
                         <Users size={60} className="text-slate-100" />
                         <p className="text-slate-400 font-black uppercase tracking-[0.2em] text-xs">No strategic clients detected.</p>
                     </div>
