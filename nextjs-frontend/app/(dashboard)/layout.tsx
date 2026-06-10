@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Sidebar from '@/components/dashboard/Sidebar';
 import TopBar from '@/components/dashboard/TopBar';
+import MobileNavbar from '@/components/dashboard/MobileNavbar';
 import { Loader2 } from 'lucide-react';
 
 // Get the role-specific token key for the current path
@@ -54,12 +55,29 @@ export default function DashboardLayout({
         );
     }
 
+    const isClientRoute = pathname.startsWith('/client');
+
     return (
         <div className="flex min-h-screen bg-white text-slate-900">
-            <Sidebar />
+            {isClientRoute ? (
+                <div className="hidden lg:flex">
+                    <Sidebar />
+                </div>
+            ) : (
+                <Sidebar />
+            )}
             <div className="flex-1 flex flex-col">
-                <TopBar />
-                <main className="flex-1 p-6 lg:p-10 overflow-y-auto bg-slate-50/50">
+                {isClientRoute ? (
+                    <>
+                        <div className="hidden lg:block">
+                            <TopBar />
+                        </div>
+                        <MobileNavbar />
+                    </>
+                ) : (
+                    <TopBar />
+                )}
+                <main className={`flex-1 overflow-y-auto bg-slate-50/50 ${isClientRoute ? 'p-4 sm:p-6 lg:p-10' : 'p-6 lg:p-10'}`}>
                     <div className="max-w-7xl mx-auto">
                         {children}
                     </div>

@@ -99,41 +99,41 @@ export default function ClientWebsitesPage() {
     }, [createOrder]);
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-700 pb-20">
+        <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-700 pb-20">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight uppercase">Order Website</h1>
-                    <p className="text-slate-500 mt-2 font-medium text-lg italic">Choose a WEBbuilder design and submit the built-in order form.</p>
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight uppercase">Order Website</h1>
+                    <p className="text-slate-500 mt-2 font-medium text-base sm:text-lg italic">Choose a WEBbuilder design and submit the built-in order form.</p>
                 </div>
                 <a
                     href={webbuilderUrl}
                     target="_blank"
-                    className="flex items-center justify-center gap-3 bg-slate-900 text-white px-8 py-5 rounded-[24px] font-black uppercase tracking-widest text-[10px] hover:bg-orange-600 transition-all shadow-xl shadow-slate-900/20"
+                    className="flex items-center justify-center gap-3 bg-slate-900 text-white px-6 sm:px-8 py-4 sm:py-5 rounded-[18px] sm:rounded-[24px] font-black uppercase tracking-widest text-[9px] sm:text-[10px] hover:bg-orange-600 transition-all shadow-xl shadow-slate-900/20 self-start lg:self-auto"
                 >
-                    <ExternalLink size={18} />
+                    <ExternalLink size={16} className="sm:size-[18px]" />
                     Open New Tab
                 </a>
             </div>
 
             {submitting && (
-                <div className="bg-orange-50 border border-orange-100 text-orange-700 rounded-[24px] px-6 py-4 text-sm font-black flex items-center gap-3">
+                <div className="bg-orange-50 border border-orange-100 text-orange-700 rounded-[16px] sm:rounded-[24px] px-5 sm:px-6 py-3.5 sm:py-4 text-xs sm:text-sm font-black flex items-center gap-3">
                     <Loader2 className="animate-spin" size={18} />
                     Sending order to admin...
                 </div>
             )}
 
             {lastMessage && !submitting && (
-                <div className="bg-white border border-slate-100 text-slate-600 rounded-[24px] px-6 py-4 text-sm font-bold flex items-center gap-3">
+                <div className="bg-white border border-slate-100 text-slate-600 rounded-[16px] sm:rounded-[24px] px-5 sm:px-6 py-3.5 sm:py-4 text-xs sm:text-sm font-bold flex items-center gap-3">
                     <ShoppingBag size={18} className="text-orange-600" />
                     {lastMessage}
                 </div>
             )}
 
-            <div className="bg-white border border-slate-100 rounded-[36px] overflow-hidden shadow-sm">
+            <div className="bg-white border border-slate-100 rounded-[20px] sm:rounded-[36px] overflow-hidden shadow-sm">
                 <iframe
                     title="WEBbuilder Website Orders"
                     src={webbuilderUrl}
-                    className="w-full h-[calc(100vh-220px)] min-h-[720px] border-0 bg-white"
+                    className="w-full h-[calc(100vh-240px)] min-h-[600px] sm:min-h-[720px] border-0 bg-white"
                 />
             </div>
         </div>
