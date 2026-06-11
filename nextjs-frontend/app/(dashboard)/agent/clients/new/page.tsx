@@ -463,7 +463,7 @@ export default function AgentNewClientPage() {
                         </button>
                     ) : (
                         <button type="submit" disabled={loading} className="flex items-center gap-2 sm:gap-3 px-10 sm:px-16 py-3.5 sm:py-5 bg-slate-900 text-white rounded-xl sm:rounded-2xl font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-orange-600 disabled:opacity-50 text-[10px] sm:text-xs">
-                            {loading ? <Loader2 className="animate-spin" size={16} className="sm:size-[22px]" /> : 'Submit Deal'}
+                            {loading ? <Loader2 className="animate-spin sm:size-[22px]" size={16} /> : 'Submit Deal'}
                         </button>
                     )}
                 </div>

@@ -104,7 +104,7 @@ export default function AgentClientsPage() {
             {/* Filters Bar */}
             <div className="bg-white border border-slate-100 p-4 sm:p-6 rounded-[20px] sm:rounded-[32px] flex flex-wrap items-center gap-4 sm:gap-6 shadow-sm">
                 <div className="relative flex-1 min-w-0 w-full">
-                    <Search className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-slate-400" size={18} className="sm:size-[20px]" />
+                    <Search className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-slate-400 sm:size-[20px]" size={18} />
                     <input 
                         type="text" 
                         placeholder="Search your clients..." 
